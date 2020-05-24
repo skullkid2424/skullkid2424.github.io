@@ -156,7 +156,7 @@ function drawLocations(){
 
   // Set various fonts/aligns/styles/colors
   context.textAlign = "center";
-  context.fillStyle = "rgba(0, 0, 0, 0.25)";
+  context.fillStyle = "rgba(255, 255, 255, 0.75)";
   context.font='bold 30px Arial';
   context.miterLimit = 2;
   context.lineJoin = 'circle';
@@ -205,7 +205,6 @@ function drawCreds(){
   context.textAlign = "center";
   context.font='bold 32px Arial';
   context.fillStyle = "rgba(0, 0, 0, 1)";
-  //context.fillText("https://skullkid2424.github.io/", 60*3, 60*7+38);
   context.fillText("skullkid2424.github.io", 60*3, 60*7+38);
 }
 
