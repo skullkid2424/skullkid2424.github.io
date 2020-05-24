@@ -33,7 +33,7 @@ document.getElementById('defense').onclick = function(e) {
   console.log("Tile clicked: " + tile);
   document.getElementById("selected").innerHTML = tile.toString();
   $('#occupied').val(defenseImages[tile]).trigger('change');
-  //document.getElementById("occupied").value = defenseImages[tile];
+  $('#occupied').select2('open');
 };
 
 function download() {
