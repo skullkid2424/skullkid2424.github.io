@@ -1,6 +1,7 @@
 var context = document.getElementById('defense').getContext('2d');
 
 var tileSize = 60;
+// The internal index coordinate (1...48)
 var tile = 1;
 
 var clickLoc = new Object;
@@ -14,6 +15,7 @@ emptyLoc.y = 0;
 // defenseImages is the state of the defense with the images for each tile
 // defenseImages[0] is the map
 // defenseImages[1..48] are the buildings/units at that tile #
+// TODO - drop this down to size 43?
 var defenseImages = Array(49).fill('');
 
 // loadedImages is a hashmap of image_url:img object
@@ -25,13 +27,18 @@ window.onload = function() {
 };
 
 document.getElementById('defense').onclick = function(e) {
-  // TODO - Maybe convert to alternate coords system
   clickLoc.x = Math.floor((e.pageX - this.offsetLeft) / tileSize);
   clickLoc.y = Math.floor((e.pageY - this.offsetTop) / tileSize);
 
   tile = clickLoc.x + (clickLoc.y * 6) + 1
-  console.log("Tile clicked: " + tile);
-  document.getElementById("selected").innerHTML = tile.toString();
+
+  // The bottom row shouldn't be clickable
+  if (tile > 42) {
+    return;
+  }
+
+  console.log("Tile clicked (index style): " + tile);
+  document.getElementById("selected").innerHTML = getDisplayTile(tile);
   $('#occupied').val(defenseImages[tile]).trigger('change');
   $('#occupied').select2('open');
 };
@@ -51,6 +58,7 @@ function download() {
 
 
 function boxChecked(){
+  document.getElementById("selected").innerHTML = getDisplayTile(tile);
   drawDefense();
 }
 
@@ -67,7 +75,7 @@ function setOccupied(){
 
 // Initialize the map
 function setDefaults(){
-  document.getElementById("selected").innerHTML = tile;
+  document.getElementById("selected").innerHTML = getDisplayTile(tile);
   defenseImages[0] = 'assets/terrain/springwater.png';
   defenseImages[1] = 'assets/buildings/fountain.png';
   defenseImages[6] = 'assets/buildings/pots.png';
@@ -115,7 +123,7 @@ function imagesLoaded(){
   context.drawImage(loadedImages[defenseImages[0]], 0, 0);
 
   // Draw coords
-  // NOTE: Consider moving coords below the tiles...?
+  // NOTE: Could be placed over the buildings as well...
   if (document.getElementById("coords").checked){
     drawLocations()
   }
@@ -150,26 +158,35 @@ function drawDefense() {
 
 
 function drawLocations(){
-  // TODO - Reverse #s to match AI guide?
+  // Draws either the "EZ" tiles (1...48 sequentially) or the
+  // AI tiles (43...48, 37...42, etc)
   // See https://vervefeh.github.io/FEH-AI/glossary.html#section1b
   var i, x, y;
 
   // Set various fonts/aligns/styles/colors
   context.textAlign = "center";
-  context.fillStyle = "rgba(255, 255, 255, 0.75)";
   context.font='bold 30px Arial';
   context.miterLimit = 2;
   context.lineJoin = 'circle';
   context.strokeStyle = 'black';
   context.lineWidth = 1;
 
+  // Use yellow to indicate AI-style tiles
+  context.fillStyle = "rgba(255, 255, 255, 0.75)";
+  if (document.getElementById("ai").checked){
+    context.fillStyle = "rgba(255, 255, 0, 0.75)";
+  }
+
+
   for (i = 1; i <= 48; i++) {
     x = getX(i)
     y = getY(i)
 
+    coord = getDisplayTile(i);
+
     // Draw outline of the number and transparent fill
-    context.strokeText(i.toString(), (x*60)-30, (y*60)-20);
-    context.fillText(i.toString(), (x*60)-30, (y*60)-20);
+    context.strokeText(coord.toString(), (x*60)-30, (y*60)-20);
+    context.fillText(coord.toString(), (x*60)-30, (y*60)-20);
 
   }
 }
@@ -208,6 +225,33 @@ function drawCreds(){
   context.fillText("skullkid2424.github.io", 60*3, 60*7+38);
 }
 
+// Returns the appropraite tile # to be displayed
+function getDisplayTile(t){
+  if (document.getElementById("ai").checked){
+    return getAI(t);
+  }
+  return t;
+}
+
+// Returns the index tile for accessing the array
+function getIndexTile(t){
+  if (document.getElementById("ai").checked){
+    return getIndex(t);
+  }
+  return t;
+}
+
+// Convert from Index tile to AI tile
+function getAI(t){
+  t = parseInt(t,10);
+  return 49 - (6 * Math.floor((t-1)/6)) - (6 - (t-1)%6);
+}
+
+// Convert from AI tile to Index tile
+function getIndex(t){
+  t = parseInt(t,10);
+  return ((t-1)%6) + (6 * ( 7 - Math.floor((t-1)/6) )) + 1;
+}
 
 function getX(t){
   return (parseInt(t, 10)-1) % 6 + 1;
