@@ -1,11 +1,13 @@
 <html>
 <header>
 <h2><a href="index.html"><- Back to main page</a></h2>
+<hr>
+<center><h1>FAQ</h1></center>
 </header>
 
 <b>Q: What is this?</b>
 <br><br>
-A: This is a tool to help you build a Defense in the Aether Raids mode of the mobile game, Fire Emblem: Heroes.
+A: This is a tool for the Aether Raids mode of the mobile game, Fire Emblem: Heroes. It allows you to create a quick mockup of an AR defense, that can easily be downloaded and shared.
 <br><br>
 <br><br>
 <b>Q: Where can I report bugs, make suggestions, or contribute code?</b>
@@ -18,6 +20,11 @@ A: You can <a href="https://github.com/skullkid2424/skullkid2424.github.io/issue
 A: I don't make websites or make things pretty for a living.
 <br><br>
 <br><br>
+<b>Q: Why is the code so messy?</b>
+<br><br>
+A: I don't make websites for a living. But basically, its a hacked together project that grew organically rather than being properly planned.
+<br><br>
+<br><br>
 <b>Q: Where are assets/icons from?</b>
 <br><br>
 A: From https://feheroes.gamepedia.com under the <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a> License.
@@ -25,23 +32,26 @@ A: From https://feheroes.gamepedia.com under the <a href="https://creativecommon
 <br><br>
 <b>Q: Why are the coordinates like that?</b>
 <br><br>
-A: Its annoying for users to use (X,Y) coords in a game like this.  Note that the coords do NOT correspond with the <a href="https://vervefeh.github.io/FEH-AI/glossary.html#section1b">AI Tile Priority</a>.
+A: Its annoying for users to use (X,Y) coords in a game like this - so giving each tile is preferred.<br>
+The default numbering system (shown in white) is the most intuitive, but the AI uses a different numbering when determing priority by tile (shown in yellow).  See <a href="https://vervefeh.github.io/FEH-AI/glossary.html#section1b">Mia's AI Academy</a> for more information.
 <br><br>
 <br><br>
 <b>Q: What features are planned?</b>
 <br><br>
-A: No promises, but I'm thinking about...
-
-* Download Button - Click button, download the map.
-* Reset Button - Nice and simple.  Clears the board (or perhaps goes back to the defaults)
-* Error/Warning Box - Will show red/yellow warnings when you have things like two bolt towers, no fortress, 5 decorations, etc.
-* Export/Import - Will allow you to export the defense as a string, and then later import the string to load that defense.
-* Offense characters - I may look at adding offense characters so specific game states can be recreated to share. Perhaps using teal boxes for defenders and red for attackers, with attackers flipped to face the other way.
-
+A: No promises, but I'm thinking about...<br>
+<ul>
+<li>Download Button - Click button, download the map. Most browsers have security concerns that make this difficult - so I need to implement it safely.</li>
+<li>Reset Button - Nice and simple.  Clears the board (or perhaps goes back to the defaults).</li>
+<li>Error/Warning Box below the tile selection - Will show red errors and yellow warnings when you have things like two bolt towers (red), no fortress (red), units below the starting rows (yellow), etc.</li>
+<ul><li>While I'd love to actually prevent invalid configurations from happening, its a great deal more complicated...</li></ul>
+<li>Export/Import - Will allow you to export the defense as a string, and then later import that string to load that defense.</li>
+<li>Offense characters - I may look at adding offense characters so specific game states can be recreated to share. Perhaps using teal boxes for defenders and red for attackers, with attackers flipped to face the other way.</li>
+</ul>
+<br><br>
 If you have any other suggestions, throw them at me.
 
 <footer>
 <br><br><hr>
-<center><a href="https://github.com/skullkid2424/skullkid2424.github.io">github</a> · <a href="/faq.html">FAQ</a>
+<center><a target="_blank" rel="noopener noreferrer" href="https://github.com/skullkid2424/skullkid2424.github.io">github</a> · <a target="_blank" rel="noopener noreferrer" href="faq.html">FAQ</a></center>
 </footer>
 </html>

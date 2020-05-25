@@ -13,6 +13,52 @@
   .col {
     flex: 50%;
   }
+ /* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
@@ -34,8 +80,8 @@
     </center>
     <center>
     <b>Instructions:</b><br>
-    Click a tile to select, then place via the dropdown<br>
-    To download image, right-click -> save image as...
+    Click to select a tile, then place via the dropdown.<br>
+    To download image, Right-Click -> Save Image As...
     </center>
   </div>
 
@@ -58,6 +104,10 @@
         <br>
         <label><input type='checkbox' id="grid" onclick="boxChecked()" checked>Grid</label><br>
         <label><input type='checkbox' id="coords" onclick="boxChecked()" checked>Coords</label><br>
+        <label><input type='checkbox' id="ai" onclick="boxChecked()">AI-Style Coords</label>
+          <div class="tooltip">(What is this?)
+            <span class="tooltiptext">These coordinates are what the AI uses when considering Tile Priority.  See <a target="_blank" rel="noopener noreferrer" style="color: #ffff00" href="https://vervefeh.github.io/FEH-AI/glossary.html#section1b">Mia's AI Academy</a> for more info.</span>
+          </div><br>
       </div>
     </div>
     <br>
@@ -65,7 +115,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <label>Occupied by: </label><select id="occupied" onchange="setOccupied()">
-            <option value = "" selected></option>
+            <option value = "" selected>-</option>
           <optgroup label="Buildings">
             <option value = "assets/buildings/fortress.png">Fortress</option>
             <option value = "assets/buildings/fountain.png">Aether Fountain</option>
@@ -635,6 +685,6 @@
 </body>
 <footer>
 <br><br><hr>
-<center><a href="https://github.com/skullkid2424/skullkid2424.github.io">github</a> · <a href="faq.html">FAQ</a></center>
+<center><a target="_blank" rel="noopener noreferrer" href="https://github.com/skullkid2424/skullkid2424.github.io">github</a> · <a target="_blank" rel="noopener noreferrer" href="faq.html">FAQ</a></center>
 </footer>
 </html>
