@@ -80,7 +80,7 @@ function setDefaults(){
   defenseImages[0] = 'assets/terrain/springwater.png';
   defenseImages[1] = 'assets/buildings/fountain.png';
   defenseImages[6] = 'assets/buildings/pots.png';
-  defenseImages[20] = 'assets/buildings/fortress.png';
+  defenseImages[31] = 'assets/buildings/fortress.png';
   $('#terrain').val(defenseImages[0]).trigger('change');
   $('#occupied').val(defenseImages[tile]).trigger('change');
 }
