@@ -13,10 +13,11 @@ emptyLoc.x = 0;
 emptyLoc.y = 0;
 
 // defenseImages is the state of the defense with the images for each tile
-// defenseImages[0] is the map
-// defenseImages[1..48] are the buildings/units at that tile #
-// TODO - drop this down to size 43?
-var defenseImages = Array(49).fill('');
+// defenseImages[0] is the terrain
+// defenseImages[1..36] are the buildings/units at that tile #
+// The tiles above 36 aren't valid for buildings
+var maxTiles = 36
+var defenseImages = Array(maxTiles + 1).fill('');
 
 // loadedImages is a hashmap of image_url:img object
 var loadedImages = {};
@@ -33,7 +34,7 @@ document.getElementById('defense').onclick = function(e) {
   tile = clickLoc.x + (clickLoc.y * 6) + 1
 
   // The bottom row shouldn't be clickable
-  if (tile > 42) {
+  if (tile > maxTiles) {
     return;
   }
 
@@ -79,7 +80,7 @@ function setDefaults(){
   defenseImages[0] = 'assets/terrain/springwater.png';
   defenseImages[1] = 'assets/buildings/fountain.png';
   defenseImages[6] = 'assets/buildings/pots.png';
-  defenseImages[20] = 'assets/buildings/fortress.png';
+  defenseImages[31] = 'assets/buildings/fortress.png';
   $('#terrain').val(defenseImages[0]).trigger('change');
   $('#occupied').val(defenseImages[tile]).trigger('change');
 }
@@ -129,7 +130,7 @@ function imagesLoaded(){
   }
 
   // Draw tiles
-  for (i=1;i<=48;i++){
+  for (i=1;i<=maxTiles;i++){
     if (defenseImages[i] == ''){continue;};
 
     var x = 60 * ((i-1) % 6);
@@ -141,24 +142,21 @@ function imagesLoaded(){
   if (document.getElementById("grid").checked){
     drawGrid()
   }
-  // Draw coords
-  // NOTE: Consider moving coords below the tiles...?
-  //if (document.getElementById("coords").checked){
-  //  drawLocations()
-  //}
+
+  // NOTE: Drawing coords here would be over the buildings
 
   // Draw creds box to cover the offense building row
   drawCreds()
 }
 
+// Simple redirect function
 function drawDefense() {
-  // Simple redirect function
   loadAndDraw()
 }
 
 
 function drawLocations(){
-  // Draws either the "EZ" tiles (1...48 sequentially) or the
+  // Draws either the "EZ" coords (1...48 sequentially) or the
   // AI tiles (43...48, 37...42, etc)
   // See https://vervefeh.github.io/FEH-AI/glossary.html#section1b
   var i, x, y;
