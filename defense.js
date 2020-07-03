@@ -163,7 +163,7 @@ function drawLocations(){
 
   // Set various fonts/aligns/styles/colors
   context.textAlign = "center";
-  context.font='bold 30px Arial';
+  context.font='bold 30px Courier New';
   context.miterLimit = 2;
   context.lineJoin = 'circle';
   context.strokeStyle = 'black';
@@ -218,7 +218,7 @@ function drawCreds(){
 
   // Put website name
   context.textAlign = "center";
-  context.font='bold 32px Arial';
+  context.font='bold 25px Courier New';
   context.fillStyle = "rgba(0, 0, 0, 1)";
   context.fillText("skullkid2424.github.io", 60*3, 60*7+38);
 }
