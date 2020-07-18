@@ -91,7 +91,7 @@ def update_index_html(options):
   original.close()
   output.close()
 
-  os.rename("index.html", "/tmp/index.html")
+  os.rename("index.html", "index.html.old")
   os.rename("temp.html", "index.html")
 
 
