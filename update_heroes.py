@@ -15,6 +15,8 @@ def get_image(url, name):
 
 # Recursive function to grab all face URLs, download images, and recurse to the next page
 def search_page(site):
+  print(f"Seaching: {site}")
+
   page = urllib.request.urlopen(site)
 
   output = []
