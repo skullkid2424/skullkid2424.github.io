@@ -43,7 +43,7 @@ def search_page(site):
       # Seach the line for URL for the image
       if line.strip().find('<div class="thumb" style="width: 150px;">') >= 0:
         start = line.index('srcset="https')
-        face_url = line.strip()[start+8:-28]
+        face_url = line.strip()[start+8:-28].split(' ')[0]
 
         # Generate filename
         name_start = line.find('img alt=') + 9
