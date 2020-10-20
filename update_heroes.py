@@ -11,6 +11,7 @@ import os
 def get_image(url, name):
   path = "assets/heroes/" + name
   if not os.path.isfile(path):
+    print(f"Grabbing image: {path}")
     urllib.request.urlretrieve(url, path)
 
 # Recursive function to grab all face URLs, download images, and recurse to the next page
@@ -29,7 +30,7 @@ def search_page(site):
     # Skip ahead till we find the top navigation area
     if line.find("next page") >= 0:
       found = 1
-      start = line.find("/index", line.index("previous page"), -1)
+      start = line.find("/Category", line.index("previous page"), -1)
       end = line.index("next page") - 39
       if start == -1:
         # Case when on the last page:
@@ -42,8 +43,15 @@ def search_page(site):
     if found == 1:
       # Seach the line for URL for the image
       if line.strip().find('<div class="thumb" style="width: 150px;">') >= 0:
-        start = line.index('srcset="https')
-        face_url = line.strip()[start+8:-28].split(' ')[0]
+        offset = 0
+        start = line.find('srcset="https')
+        if start == -1:
+          # Some linkes use 'src' instead of 'srcset'
+          start = line.index('src="https')
+          offset = -3
+          #print("---------------")
+          #print(line)
+        face_url = line.strip()[start+8+offset:-28].split(' ')[0]
 
         # Generate filename
         name_start = line.find('img alt=') + 9
